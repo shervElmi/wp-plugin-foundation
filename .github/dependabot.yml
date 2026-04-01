@@ -12,6 +12,7 @@ updates:
       open-pull-requests-limit: 10
       labels:
           - 'GitHub Actions'
+          - '[Type] Maintenance'
       groups:
           github-actions:
               patterns:
@@ -25,4 +26,5 @@ updates:
       open-pull-requests-limit: 10
       labels:
           - 'Composer'
+          - '[Type] Maintenance'
       versioning-strategy: increase-if-necessary
