@@ -1,0 +1,28 @@
+# Configure Dependabot scanning.
+version: 2
+
+updates:
+    # Check for updates to GitHub Actions.
+    - package-ecosystem: 'github-actions'
+      directories:
+          - '.github/workflows'
+          - '.github/actions'
+      schedule:
+          interval: 'daily'
+      open-pull-requests-limit: 10
+      labels:
+          - 'GitHub Actions'
+      groups:
+          github-actions:
+              patterns:
+                  - '*'
+
+    # Check for updates to Composer dependencies.
+    - package-ecosystem: 'composer'
+      directory: /
+      schedule:
+          interval: 'weekly'
+      open-pull-requests-limit: 10
+      labels:
+          - 'Composer'
+      versioning-strategy: increase-if-necessary

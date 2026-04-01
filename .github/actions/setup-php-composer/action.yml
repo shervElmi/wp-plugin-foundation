@@ -1,0 +1,41 @@
+name: 'Set up PHP and install Composer dependencies'
+description: 'Configures PHP, computes a weekly cache key, and installs Composer dependencies.'
+
+inputs:
+    php-version:
+        description: 'PHP version to set up'
+        required: true
+    coverage:
+        description: 'Xdebug coverage driver (xdebug, pcov, or none)'
+        default: 'none'
+    tools:
+        description: 'Additional tools to install via setup-php (e.g. cs2pr)'
+        default: ''
+
+outputs:
+    cache-date:
+        description: "Last Monday's date, used as a weekly cache-busting suffix"
+        value: ${{ steps.get-date.outputs.date }}
+
+runs:
+    using: composite
+    steps:
+        - name: Set up PHP
+          uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # v2.37.0
+          with:
+              php-version: ${{ inputs.php-version }}
+              coverage: ${{ inputs.coverage }}
+              tools: ${{ inputs.tools }}
+
+        # This date is used to ensure that the Composer cache is flushed at least once every week.
+        - name: "Get last Monday's date"
+          id: get-date
+          shell: bash
+          run: echo "date=$(/bin/date -u --date='last Mon' "+%F")" >> "$GITHUB_OUTPUT"
+
+        # Since Composer dependencies are installed using `composer update` and no lock file is in version control,
+        # passing a custom cache suffix ensures that the cache is flushed at least once per week.
+        - name: Install Composer dependencies
+          uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # v4.0.0
+          with:
+              custom-cache-suffix: ${{ steps.get-date.outputs.date }}

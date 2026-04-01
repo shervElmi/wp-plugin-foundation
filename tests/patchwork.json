@@ -1,0 +1,9 @@
+{
+	"redefinable-internals": [
+		"is_dir",
+		"file_exists",
+		"is_readable",
+		"function_exists",
+		"defined"
+	]
+}

@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+    - name: Usage question
+      url: https://github.com/shervElmi/wp-plugin-foundation/discussions
+      about: For questions about using the package, please start a GitHub Discussion instead of opening an issue.
+    - name: Documentation
+      url: https://github.com/shervElmi/wp-plugin-foundation/tree/main/docs
+      about: Browse the documentation for usage guides and API reference.

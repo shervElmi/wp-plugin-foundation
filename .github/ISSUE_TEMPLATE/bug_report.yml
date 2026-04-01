@@ -1,0 +1,60 @@
+name: Bug report
+description: Report a bug with the WP Plugin Foundation library
+labels: ['[Type] Bug']
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Thanks for taking the time to fill out this bug report!
+
+    - type: textarea
+      attributes:
+          label: Description
+          description: Please write a brief description of the bug, including what you expect to happen and what is currently happening.
+          placeholder: |
+              Feature '...' is not working properly. I expect '...' to happen, but '...' happens instead.
+      validations:
+          required: true
+
+    - type: textarea
+      attributes:
+          label: Step-by-step reproduction instructions
+          description: Please write the steps needed to reproduce the bug.
+          placeholder: |
+              1. Install the package via Composer
+              2. Create a plugin instance
+              3. Register a service provider '...'
+              4. Boot '...'
+      validations:
+          required: true
+
+    - type: textarea
+      attributes:
+          label: Code snippet
+          description: |
+              If possible, please share a minimal code snippet that demonstrates the issue.
+              Tip: You can attach log files by clicking this area to highlight it and then dragging files in.
+          render: php
+      validations:
+          required: false
+
+    - type: textarea
+      attributes:
+          label: Environment info
+          description: |
+              Please list the versions you are using.
+          placeholder: |
+              - PHP version (e.g. 8.2, 8.3, 8.4)
+              - Package version (e.g. 1.0.0)
+              - WordPress version (if applicable)
+      validations:
+          required: false
+
+    - type: checkboxes
+      id: existing
+      attributes:
+          label: Please confirm that you have searched existing issues in the repo.
+          description: You can do this by searching https://github.com/shervElmi/wp-plugin-foundation/issues.
+          options:
+              - label: 'Yes'
+                required: true

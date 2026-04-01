@@ -1,0 +1,42 @@
+name: Feature request
+description: Propose an idea for a feature or an enhancement
+labels: ['[Type] Enhancement']
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Thanks for taking the time to propose a feature or enhancement!
+
+    - type: textarea
+      attributes:
+          label: What problem does this address?
+          description: Please describe the problem or pain point this feature would solve.
+          placeholder: |
+              I'm always frustrated when... / It is currently difficult to...
+      validations:
+          required: true
+
+    - type: textarea
+      attributes:
+          label: Proposed solution
+          description: Please outline the feature or enhancement you want and how it addresses the problem above.
+          placeholder: |
+              I would like to be able to...
+      validations:
+          required: true
+
+    - type: textarea
+      attributes:
+          label: Alternatives considered
+          description: Have you considered any alternative solutions or workarounds?
+      validations:
+          required: false
+
+    - type: checkboxes
+      id: existing
+      attributes:
+          label: Please confirm that you have searched existing issues in the repo.
+          description: You can do this by searching https://github.com/shervElmi/wp-plugin-foundation/issues.
+          options:
+              - label: 'Yes'
+                required: true

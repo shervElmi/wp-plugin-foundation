@@ -1,0 +1,64 @@
+name: Lint
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+    # Allow manually triggering the workflow.
+    workflow_dispatch:
+
+# Disable permissions for all available scopes by default.
+# Any needed permissions should be configured at the job level.
+permissions: {}
+
+# Cancels all previous workflow runs for pull requests that have not completed.
+concurrency:
+    # The concurrency group contains the workflow name and the branch name for pull requests
+    # or the commit hash for any other events.
+    group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.head_ref || github.sha }}
+    cancel-in-progress: true
+
+jobs:
+    phpcs:
+        name: PHP coding standards
+        runs-on: ubuntu-24.04
+        permissions:
+            contents: read
+        timeout-minutes: 20
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+              with:
+                  show-progress: ${{ runner.debug == '1' && 'true' || 'false' }}
+                  persist-credentials: false
+
+            - name: Set up PHP and install Composer dependencies
+              id: php-setup
+              uses: ./.github/actions/setup-php-composer
+              with:
+                  php-version: '8.2'
+                  tools: cs2pr
+
+            - name: Cache PHPCS scan cache
+              uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+              with:
+                  path: .cache/phpcs.json
+                  key: ${{ runner.os }}-date-${{ steps.php-setup.outputs.cache-date }}-phpcs-cache-${{ hashFiles('**/composer.json', 'phpcs.xml.dist') }}
+
+            - name: Make Composer packages available globally
+              run: echo "${PWD}/vendor/bin" >> "$GITHUB_PATH"
+
+            - name: Run PHPCS
+              id: phpcs
+              run: phpcs --report-full --report-checkstyle=./.cache/phpcs-report.xml
+
+            - name: Show PHPCS results in PR
+              if: ${{ always() && steps.phpcs.outcome == 'failure' }}
+              run: cs2pr ./.cache/phpcs-report.xml
+
+            - name: Ensure version-controlled files are not modified during the lint
+              run: git diff --exit-code

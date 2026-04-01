@@ -1,0 +1,47 @@
+# Auto-labeling rules for pull requests.
+# Used by the pr-labeling-automation.yml workflow.
+
+'[Area] Source':
+    - changed-files:
+          - any-glob-to-any-file: 'src/**'
+
+'[Area] Tests':
+    - changed-files:
+          - any-glob-to-any-file: 'tests/**'
+
+'[Area] Documentation':
+    - changed-files:
+          - any-glob-to-any-file:
+                - 'docs/**'
+                - 'README.md'
+                - 'CHANGELOG.md'
+                - 'SECURITY.md'
+
+'[Area] Configuration':
+    - changed-files:
+          - any-glob-to-any-file:
+                - 'composer.json'
+                - 'phpcs.xml.dist'
+                - 'phpunit.xml.dist'
+                - '.editorconfig'
+                - '.gitattributes'
+                - '.gitignore'
+                - 'package.json'
+
+'[Area] CI':
+    - changed-files:
+          - any-glob-to-any-file:
+                - '.github/workflows/**'
+                - '.github/actions/**'
+                - '.github/actionlint.yml'
+                - '.github/codecov.yml'
+                - '.github/dependabot.yml'
+                - '.github/labeler.yml'
+                - '.github/CODEOWNERS'
+
+'[Area] Community':
+    - changed-files:
+          - any-glob-to-any-file:
+                - '.github/ISSUE_TEMPLATE/**'
+                - '.github/PULL_REQUEST_TEMPLATE.md'
+                - '.github/SUPPORT.md'

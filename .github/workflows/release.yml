@@ -1,0 +1,104 @@
+name: Release
+
+on:
+    push:
+        tags:
+            - 'v*'
+
+# Disable permissions for all available scopes by default.
+# Any needed permissions should be configured at the job level.
+permissions: {}
+
+# Prevent duplicate release runs from rapid tag pushes.
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    validate:
+        name: Validate release tag
+        runs-on: ubuntu-24.04
+        permissions: {}
+        timeout-minutes: 5
+        outputs:
+            version: ${{ steps.tag.outputs.version }}
+        steps:
+            - name: Parse and validate tag
+              id: tag
+              run: |
+                  TAG="${GITHUB_REF#refs/tags/}"
+                  if [[ ! "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?$ ]]; then
+                    echo "::error::Invalid tag format: $TAG (expected vX.Y.Z or vX.Y.Z-suffix)"
+                    exit 1
+                  fi
+                  echo "version=${TAG#v}" >> "$GITHUB_OUTPUT"
+                  echo "Valid tag: $TAG (version: ${TAG#v})"
+
+    verify:
+        name: Verify before release
+        runs-on: ubuntu-24.04
+        needs: validate
+        permissions:
+            contents: read
+        timeout-minutes: 20
+
+        steps:
+            - name: Harden Runner
+              uses: step-security/harden-runner@fa2e9d605c4eeb9fcad4c99c224cee0c6c7f3594 # v2.16.0
+              with:
+                  egress-policy: audit
+
+            - name: Checkout repository
+              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+              with:
+                  show-progress: ${{ runner.debug == '1' && 'true' || 'false' }}
+                  persist-credentials: false
+
+            - name: Set up PHP and install Composer dependencies
+              uses: ./.github/actions/setup-php-composer
+              with:
+                  php-version: '8.2'
+                  tools: cs2pr
+
+            - name: Make Composer packages available globally
+              run: echo "${PWD}/vendor/bin" >> "$GITHUB_PATH"
+
+            - name: Run PHPCS
+              id: phpcs
+              run: phpcs --report-full --report-checkstyle=./.cache/phpcs-report.xml
+
+            - name: Show PHPCS results in PR
+              if: ${{ always() && steps.phpcs.outcome == 'failure' }}
+              run: cs2pr ./.cache/phpcs-report.xml
+
+            - name: Run PHPUnit
+              run: composer test
+
+    release:
+        name: Publish GitHub release
+        runs-on: ubuntu-24.04
+        needs: [validate, verify]
+        permissions:
+            contents: write
+        timeout-minutes: 10
+
+        steps:
+            - name: Harden Runner
+              uses: step-security/harden-runner@fa2e9d605c4eeb9fcad4c99c224cee0c6c7f3594 # v2.16.0
+              with:
+                  egress-policy: audit
+
+            - name: Checkout repository
+              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+              with:
+                  fetch-depth: 0
+                  show-progress: ${{ runner.debug == '1' && 'true' || 'false' }}
+                  persist-credentials: false
+
+            - name: Create release
+              uses: softprops/action-gh-release@153bb8e04406b158c6c84fc1615b65b24149a1fe # v2.6.1
+              with:
+                  name: v${{ needs.validate.outputs.version }}
+                  generate_release_notes: true
+                  draft: false
+                  prerelease: ${{ contains(github.ref, '-rc') || contains(github.ref, '-beta') || contains(github.ref, '-alpha') }}

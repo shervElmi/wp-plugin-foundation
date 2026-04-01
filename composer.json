@@ -1,0 +1,64 @@
+{
+	"name": "sherv/wp-plugin-foundation",
+	"description": "A structured foundation for building maintainable WordPress plugins using modern PHP practices, service providers, a DI container, and lifecycle management.",
+	"type": "library",
+	"license": "MIT",
+	"keywords": [
+		"wordpress",
+		"plugin",
+		"foundation",
+		"service-provider",
+		"lifecycle"
+	],
+	"homepage": "https://github.com/shervElmi/wp-plugin-foundation",
+	"authors": [
+		{
+			"name": "Sherv Elmi",
+			"email": "sherv.elmi@gmail.com"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/shervElmi/wp-plugin-foundation/issues",
+		"source": "https://github.com/shervElmi/wp-plugin-foundation"
+	},
+	"require": {
+		"php": ">=8.2",
+		"sherv/wp-di-container": "^1.0"
+	},
+	"require-dev": {
+		"automattic/vipwpcs": "^3.0.1",
+		"brain/monkey": "^2.7",
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.2.0",
+		"mockery/mockery": "^1.6.12",
+		"phpcompatibility/phpcompatibility-wp": "^2.1.8",
+		"phpunit/phpunit": "^11.5"
+	},
+	"autoload": {
+		"psr-4": {
+			"Sherv\\Foundation\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Sherv\\Foundation\\Tests\\": "tests/"
+		}
+	},
+	"scripts": {
+		"format": "phpcbf --standard=phpcs.xml.dist --report-summary --report-source",
+		"lint": "phpcs --standard=phpcs.xml.dist",
+		"test": "phpunit --no-coverage",
+		"test:coverage": "XDEBUG_MODE=coverage phpunit --coverage-text --coverage-html=coverage"
+	},
+	"config": {
+		"platform": {
+			"php": "8.2"
+		},
+		"sort-packages": true,
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		},
+		"lock": false
+	},
+	"minimum-stability": "stable",
+	"prefer-stable": true
+}

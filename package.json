@@ -1,0 +1,13 @@
+{
+	"name": "sherv-wp-plugin-foundation",
+	"private": true,
+	"description": "A structured foundation for building maintainable WordPress plugins using modern PHP practices, service providers, a DI container, and lifecycle management.",
+	"license": "MIT",
+	"scripts": {
+		"prepare": "husky"
+	},
+	"devDependencies": {
+		"husky": "^9.1.7",
+		"lint-staged": "^15.0.0"
+	}
+}

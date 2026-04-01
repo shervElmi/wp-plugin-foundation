@@ -1,0 +1,65 @@
+name: Tests
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+    # Allow manually triggering the workflow.
+    workflow_dispatch:
+
+# Disable permissions for all available scopes by default.
+# Any needed permissions should be configured at the job level.
+permissions: {}
+
+# Cancels all previous workflow runs for pull requests that have not completed.
+concurrency:
+    # The concurrency group contains the workflow name and the branch name for pull requests
+    # or the commit hash for any other events.
+    group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.head_ref || github.sha }}
+    cancel-in-progress: true
+
+jobs:
+    test-php:
+        name: PHP ${{ matrix.php }}
+        runs-on: ubuntu-24.04
+        permissions:
+            contents: read
+        timeout-minutes: 20
+        strategy:
+            fail-fast: false
+            matrix:
+                php: ['8.2', '8.3', '8.4']
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+              with:
+                  show-progress: ${{ runner.debug == '1' && 'true' || 'false' }}
+                  persist-credentials: false
+
+            - name: Set up PHP and install Composer dependencies
+              uses: ./.github/actions/setup-php-composer
+              with:
+                  php-version: ${{ matrix.php }}
+                  coverage: xdebug
+
+            - name: Run PHPUnit
+              run: composer test
+
+            - name: Run PHPUnit with coverage
+              if: matrix.php == '8.4'
+              env:
+                  XDEBUG_MODE: coverage
+              run: composer test:coverage -- --coverage-clover coverage.xml
+
+            - name: Upload coverage
+              if: matrix.php == '8.4'
+              uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2 # v6.0.0
+              with:
+                  files: coverage.xml
+                  fail_ci_if_error: false
+              env:
+                  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

@@ -1,0 +1,25 @@
+name: Packagist
+
+on:
+    push:
+        tags:
+            - 'v*'
+
+# Disable permissions for all available scopes by default.
+# Any needed permissions should be configured at the job level.
+permissions: {}
+
+jobs:
+    update:
+        name: Notify Packagist
+        runs-on: ubuntu-24.04
+        permissions: {}
+        timeout-minutes: 10
+
+        steps:
+            - name: Notify Packagist of update
+              run: |
+                  curl -XPOST \
+                    -H 'Content-Type: application/json' \
+                    "https://packagist.org/api/update-package?username=${{ secrets.PACKAGIST_USERNAME }}&apiToken=${{ secrets.PACKAGIST_API_TOKEN }}" \
+                    -d '{"repository":{"url":"https://github.com/${{ github.repository }}"}}'
