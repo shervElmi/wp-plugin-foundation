@@ -3,7 +3,7 @@
  * Interface Plugin.
  *
  * @package Sherv\Foundation
- * @since   X.X.X
+ * @since   1.0.0
  */
 
 declare( strict_types=1 );
@@ -16,14 +16,14 @@ use Sherv\Foundation\Configuration\Plugin_Builder;
 /**
  * Contract for defining a plugin.
  *
- * @since X.X.X
+ * @since 1.0.0
  */
 interface Plugin extends Plugin_Activation_Aware, Plugin_Deactivation_Aware {
 
 	/**
 	 * Begin configuring a new plugin instance.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param string|null $plugin_main_file The path to the main plugin file.
 	 * @param Container   $container        Optional container instance.
@@ -34,7 +34,7 @@ interface Plugin extends Plugin_Activation_Aware, Plugin_Deactivation_Aware {
 	/**
 	 * Boot the plugin.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
@@ -43,7 +43,7 @@ interface Plugin extends Plugin_Activation_Aware, Plugin_Deactivation_Aware {
 	/**
 	 * Determine if the plugin has booted.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @return bool
 	 */
@@ -52,7 +52,7 @@ interface Plugin extends Plugin_Activation_Aware, Plugin_Deactivation_Aware {
 	/**
 	 * Get the container instance or a specific entry by ID or class name.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param string|null $id   The entry ID or class name.
 	 * @param array       $with Parameters to pass when getting the entry.
@@ -67,7 +67,7 @@ interface Plugin extends Plugin_Activation_Aware, Plugin_Deactivation_Aware {
 	/**
 	 * Get the base path of the plugin.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param string $path Additional path to append.
 	 * @return string
@@ -77,7 +77,7 @@ interface Plugin extends Plugin_Activation_Aware, Plugin_Deactivation_Aware {
 	/**
 	 * Get the plugin main file.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @return string|null
 	 */
@@ -86,7 +86,7 @@ interface Plugin extends Plugin_Activation_Aware, Plugin_Deactivation_Aware {
 	/**
 	 * Determine if debug mode is enabled.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @return bool
 	 */
@@ -95,7 +95,7 @@ interface Plugin extends Plugin_Activation_Aware, Plugin_Deactivation_Aware {
 	/**
 	 * Detect the plugin's current environment.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @return string
 	 */

@@ -3,7 +3,7 @@
  * Class Plugin_Builder.
  *
  * @package Sherv\Foundation
- * @since   X.X.X
+ * @since   1.0.0
  */
 
 declare( strict_types=1 );
@@ -18,14 +18,14 @@ use Sherv\Foundation\Support\Utilities;
 /**
  * Configures and creates a plugin instance.
  *
- * @since X.X.X
+ * @since 1.0.0
  */
 final readonly class Plugin_Builder {
 
 	/**
 	 * Create a new plugin builder instance.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param Plugin $plugin The plugin instance.
 	 */
@@ -35,7 +35,7 @@ final readonly class Plugin_Builder {
 	/**
 	 * Specify the providers directory path.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param string $path Path to the providers directory.
 	 * @return $this
@@ -55,7 +55,7 @@ final readonly class Plugin_Builder {
 	/**
 	 * Register the properties of the plugin in the plugin container.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @return $this
 	 *
@@ -93,7 +93,7 @@ final readonly class Plugin_Builder {
 	/**
 	 * Register service providers.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param array $providers           List of service providers to register.
 	 * @param bool  $with_providers_file Whether to include providers from the providers file.
@@ -123,7 +123,7 @@ final readonly class Plugin_Builder {
 	/**
 	 * Create and return the plugin instance.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @return Plugin
 	 */
@@ -134,7 +134,7 @@ final readonly class Plugin_Builder {
 	/**
 	 * Retrieve providers from the providers directory.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @return array
 	 */
@@ -154,7 +154,7 @@ final readonly class Plugin_Builder {
 	/**
 	 * Get the path to the providers file.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @return string
 	 */

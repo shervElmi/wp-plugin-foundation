@@ -3,7 +3,7 @@
  * Class Utilities.
  *
  * @package Sherv\Foundation
- * @since   X.X.X
+ * @since   1.0.0
  */
 
 declare( strict_types=1 );
@@ -15,7 +15,7 @@ use Composer\Autoload\ClassLoader;
 /**
  * Common utility methods shared across the foundation package.
  *
- * @since X.X.X
+ * @since 1.0.0
  */
 final class Utilities {
 
@@ -26,7 +26,7 @@ final class Utilities {
 	 * `plugin_dir_path()` function. Otherwise falls back to the Composer
 	 * autoloader location.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param string|null $plugin_main_file Absolute path to the main plugin file.
 	 * @return string Trailing-slashed directory path with forward slashes.
@@ -45,7 +45,7 @@ final class Utilities {
 	 * Ensures the WordPress `get_plugin_data()` function is available before
 	 * calling it, loading the required file from `wp-admin` when necessary.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param string $plugin_main_file Absolute path to the main plugin file.
 	 * @return array<string, mixed> Plugin header data.

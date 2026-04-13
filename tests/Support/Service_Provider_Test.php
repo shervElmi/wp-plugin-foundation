@@ -3,7 +3,7 @@
  * Tests for ServiceProvider.
  *
  * @package Sherv\Foundation\Tests
- * @since   X.X.X
+ * @since   1.0.0
  */
 
 declare( strict_types=1 );
@@ -19,7 +19,7 @@ use Sherv\Foundation\Tests\Test_Case;
 /**
  * Test case for ServiceProvider.
  *
- * @since X.X.X
+ * @since 1.0.0
  */
 class Service_Provider_Test extends Test_Case {
 

@@ -3,7 +3,7 @@
  * Abstract Class Service_Provider.
  *
  * @package Sherv\Foundation
- * @since   X.X.X
+ * @since   1.0.0
  */
 
 declare( strict_types=1 );
@@ -18,7 +18,7 @@ use Sherv\Foundation\Contracts\Provider\Service_Provider as Service_Provider_Con
  *
  * Service providers can extend this class for consistent patterns and improved maintainability.
  *
- * @since X.X.X
+ * @since 1.0.0
  *
  * @const array<string, mixed> BINDINGS   Container bindings to register.
  * @const array<string, mixed> SINGLETONS Container singletons to register.
@@ -28,7 +28,7 @@ abstract class Service_Provider implements Service_Provider_Contract {
 	/**
 	 * Create a new service provider instance.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param Container $container The container instance.
 	 */
@@ -38,7 +38,7 @@ abstract class Service_Provider implements Service_Provider_Contract {
 	/**
 	 * Register services with the container.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
@@ -48,7 +48,7 @@ abstract class Service_Provider implements Service_Provider_Contract {
 	/**
 	 * Boot services after registration.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @return void
 	 */

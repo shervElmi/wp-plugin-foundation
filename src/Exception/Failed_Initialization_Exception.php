@@ -3,7 +3,7 @@
  * Class Failed_Initialization_Exception.
  *
  * @package Sherv\Foundation
- * @since   X.X.X
+ * @since   1.0.0
  */
 
 declare( strict_types=1 );
@@ -15,14 +15,14 @@ use RuntimeException;
 /**
  * Exception thrown when a package fails to initialize.
  *
- * @since X.X.X
+ * @since 1.0.0
  */
 final class Failed_Initialization_Exception extends RuntimeException {
 
 	/**
 	 * Create a new exception for an invalid plugin main file path.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param string $path The invalid plugin main file path.
 	 * @return self
@@ -34,7 +34,7 @@ final class Failed_Initialization_Exception extends RuntimeException {
 	/**
 	 * Create a new exception for an invalid providers directory path.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param string $path The invalid providers directory path.
 	 * @return self
@@ -46,7 +46,7 @@ final class Failed_Initialization_Exception extends RuntimeException {
 	/**
 	 * Exception for missing plugin main file.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param string $method The method where the plugin main file is required.
 	 * @return self
@@ -63,7 +63,7 @@ final class Failed_Initialization_Exception extends RuntimeException {
 	/**
 	 * Helper method to create an exception for an invalid path.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param string $type The type of the path.
 	 * @param string $path The invalid path.

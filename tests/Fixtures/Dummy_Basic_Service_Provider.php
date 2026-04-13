@@ -3,7 +3,7 @@
  * Fixture: Dummy_Basic_Service_Provider.
  *
  * @package Sherv\Foundation\Tests
- * @since   X.X.X
+ * @since   1.0.0
  */
 
 declare( strict_types=1 );
@@ -15,7 +15,7 @@ use Sherv\Foundation\Contracts\Provider\Service_Provider;
 /**
  * A basic service provider fixture for testing.
  *
- * @since X.X.X
+ * @since 1.0.0
  */
 class Dummy_Basic_Service_Provider implements Service_Provider {
 

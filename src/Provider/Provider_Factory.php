@@ -3,7 +3,7 @@
  * Class Provider_Factory.
  *
  * @package Sherv\Foundation
- * @since   X.X.X
+ * @since   1.0.0
  */
 
 declare( strict_types=1 );
@@ -17,14 +17,14 @@ use Sherv\Foundation\Exception\Invalid_Provider_Exception;
 /**
  * Factory class for resolving service providers.
  *
- * @since X.X.X
+ * @since 1.0.0
  */
 class Provider_Factory {
 
 	/**
 	 * Create a new service provider instance.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param string    $provider  The service provider class name.
 	 * @param Container $container The container instance.

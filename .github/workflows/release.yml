@@ -1,43 +1,103 @@
 name: Release
 
 on:
-    push:
-        tags:
-            - 'v*'
+    workflow_dispatch:
+        inputs:
+            version:
+                description: 'Release version (e.g., 1.1.0, 2.0.0-rc1)'
+                required: true
+                type: string
 
 # Disable permissions for all available scopes by default.
 # Any needed permissions should be configured at the job level.
 permissions: {}
 
-# Prevent duplicate release runs from rapid tag pushes.
 concurrency:
     group: ${{ github.workflow }}-${{ github.ref }}
     cancel-in-progress: true
 
 jobs:
     validate:
-        name: Validate release tag
+        name: Validate release version
         runs-on: ubuntu-24.04
         permissions: {}
         timeout-minutes: 5
         outputs:
-            version: ${{ steps.tag.outputs.version }}
+            version: ${{ steps.validate.outputs.version }}
         steps:
-            - name: Parse and validate tag
-              id: tag
+            - name: Parse and validate version
+              id: validate
+              env:
+                  VERSION: ${{ inputs.version }}
               run: |
-                  TAG="${GITHUB_REF#refs/tags/}"
-                  if [[ ! "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?$ ]]; then
-                    echo "::error::Invalid tag format: $TAG (expected vX.Y.Z or vX.Y.Z-suffix)"
+                  if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?$ ]]; then
+                    echo "::error::Invalid version format: $VERSION (expected X.Y.Z or X.Y.Z-suffix)"
                     exit 1
                   fi
-                  echo "version=${TAG#v}" >> "$GITHUB_OUTPUT"
-                  echo "Valid tag: $TAG (version: ${TAG#v})"
+                  echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+                  echo "Valid version: ${VERSION}"
+
+    prepare:
+        name: Replace version placeholders
+        runs-on: ubuntu-24.04
+        needs: validate
+        permissions:
+            contents: write
+        timeout-minutes: 10
+
+        steps:
+            - name: Harden Runner
+              uses: step-security/harden-runner@fe104658747b27e96e4f7e80cd0a94068e53901d # v2.16.1
+              with:
+                  egress-policy: audit
+
+            - name: Checkout repository
+              uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+              with:
+                  show-progress: ${{ runner.debug == '1' && 'true' || 'false' }}
+
+            - name: Configure git user name and email
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+            - name: Replace version placeholders
+              env:
+                  VERSION: ${{ needs.validate.outputs.version }}
+              run: |
+                  BEFORE=$(grep -r --include='*.php' -c 'X\.X\.X' src/ tests/ | awk -F: '{s+=$NF} END {print s+0}')
+                  if [ "$BEFORE" -eq 0 ]; then
+                    echo "No X.X.X placeholders found. Skipping replacement."
+                    exit 0
+                  fi
+                  find src/ tests/ -name '*.php' -exec sed -i "s/@since\(\s\+\)X\.X\.X/@since\1${VERSION}/g" {} +
+                  echo "Replaced ${BEFORE} placeholder(s) with ${VERSION}."
+
+            - name: Verify no placeholders remain
+              run: |
+                  if grep -rq 'X\.X\.X' src/ tests/ --include='*.php'; then
+                    echo "::error::Unreplaced X.X.X placeholders found:"
+                    grep -rn '@since.*X\.X\.X' src/ tests/
+                    exit 1
+                  fi
+                  echo "All version placeholders resolved."
+
+            - name: Commit version placeholder replacement
+              env:
+                  VERSION: ${{ needs.validate.outputs.version }}
+              run: |
+                  if git diff --quiet src/ tests/; then
+                    echo "No changes to commit."
+                    exit 0
+                  fi
+                  git add src/ tests/
+                  git commit -m "build: replace version placeholders with ${VERSION}"
+                  git push
 
     verify:
         name: Verify before release
         runs-on: ubuntu-24.04
-        needs: validate
+        needs: [validate, prepare]
         permissions:
             contents: read
         timeout-minutes: 20
@@ -51,6 +111,7 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
               with:
+                  ref: ${{ github.ref }}
                   show-progress: ${{ runner.debug == '1' && 'true' || 'false' }}
                   persist-credentials: false
 
@@ -62,6 +123,14 @@ jobs:
 
             - name: Make Composer packages available globally
               run: echo "${PWD}/vendor/bin" >> "$GITHUB_PATH"
+
+            - name: Verify version placeholders are resolved
+              run: |
+                  if grep -rq 'X\.X\.X' src/ tests/ --include='*.php'; then
+                    echo "::error::Unresolved X.X.X placeholders found. Version replacement did not succeed."
+                    grep -rn '@since.*X\.X\.X' src/ tests/
+                    exit 1
+                  fi
 
             - name: Run PHPCS
               id: phpcs
@@ -91,6 +160,7 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
               with:
+                  ref: ${{ github.ref }}
                   fetch-depth: 0
                   show-progress: ${{ runner.debug == '1' && 'true' || 'false' }}
                   persist-credentials: false
@@ -98,7 +168,8 @@ jobs:
             - name: Create release
               uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v3.0.0
               with:
+                  tag_name: v${{ needs.validate.outputs.version }}
                   name: v${{ needs.validate.outputs.version }}
                   generate_release_notes: true
                   draft: false
-                  prerelease: ${{ contains(github.ref, '-rc') || contains(github.ref, '-beta') || contains(github.ref, '-alpha') }}
+                  prerelease: ${{ contains(inputs.version, '-rc') || contains(inputs.version, '-beta') || contains(inputs.version, '-alpha') }}

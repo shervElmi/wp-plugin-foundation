@@ -3,7 +3,7 @@
  * Fixture: Provider_Factory_Stub.
  *
  * @package Sherv\Foundation\Tests
- * @since   X.X.X
+ * @since   1.0.0
  */
 
 declare( strict_types=1 );
@@ -17,7 +17,7 @@ use Sherv\Foundation\Provider\Provider_Factory;
 /**
  * A stub implementation of Provider_Factory for testing.
  *
- * @since X.X.X
+ * @since 1.0.0
  */
 class Provider_Factory_Stub extends Provider_Factory {
 

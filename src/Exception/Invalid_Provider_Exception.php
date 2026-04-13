@@ -3,7 +3,7 @@
  * Class Invalid_Provider_Exception.
  *
  * @package Sherv\Foundation
- * @since   X.X.X
+ * @since   1.0.0
  */
 
 declare( strict_types=1 );
@@ -15,14 +15,14 @@ use InvalidArgumentException;
 /**
  * Exception thrown when an invalid service provider is encountered.
  *
- * @since X.X.X
+ * @since 1.0.0
  */
 final class Invalid_Provider_Exception extends InvalidArgumentException {
 
 	/**
 	 * Create a new exception for a non-existent provider class.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param class-string $provider The provider class that does not exist.
 	 * @return self
@@ -39,7 +39,7 @@ final class Invalid_Provider_Exception extends InvalidArgumentException {
 	/**
 	 * Create a new exception for an invalid provider that does not implement the Service_Provider interface.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param class-string $provider The provider class name.
 	 * @return self

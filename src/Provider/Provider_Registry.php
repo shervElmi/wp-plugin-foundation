@@ -3,7 +3,7 @@
  * Class Provider_Registry.
  *
  * @package Sherv\Foundation
- * @since   X.X.X
+ * @since   1.0.0
  */
 
 declare( strict_types=1 );
@@ -17,14 +17,14 @@ use Sherv\Foundation\Exception\Invalid_Provider_Exception;
 /**
  * Central registry for registering and getting service providers.
  *
- * @since X.X.X
+ * @since 1.0.0
  */
 class Provider_Registry {
 
 	/**
 	 * All registered service providers.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @var Service_Provider[]
 	 */
@@ -33,7 +33,7 @@ class Provider_Registry {
 	/**
 	 * Create a new provider registry instance.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param Plugin           $plugin           The plugin instance.
 	 * @param Provider_Factory $provider_factory The provider factory instance.
@@ -47,7 +47,7 @@ class Provider_Registry {
 	/**
 	 * Register a service provider.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param Service_Provider|string $provider The service provider instance or class name.
 	 * @param bool                    $force    Whether to force re-registration.
@@ -102,7 +102,7 @@ class Provider_Registry {
 	/**
 	 * Get a registered service provider.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param Service_Provider|string $provider The service provider instance or class name.
 	 * @return Service_Provider|null
@@ -114,7 +114,7 @@ class Provider_Registry {
 	/**
 	 * Set a service provider in the registry.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param Service_Provider|string $provider The service provider instance or class name.
 	 * @return void
@@ -126,7 +126,7 @@ class Provider_Registry {
 	/**
 	 * Determine if a service provider is registered.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param Service_Provider|string $provider The service provider instance or class name.
 	 * @return bool
@@ -138,7 +138,7 @@ class Provider_Registry {
 	/**
 	 * Get all registered service providers.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @return Service_Provider[]
 	 */
@@ -149,7 +149,7 @@ class Provider_Registry {
 	/**
 	 * Boot a service provider.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param Service_Provider $provider The service provider to boot.
 	 * @return void
@@ -163,7 +163,7 @@ class Provider_Registry {
 	/**
 	 * Get the provider class name.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param Service_Provider|class-string $provider The provider instance or class name.
 	 * @return class-string

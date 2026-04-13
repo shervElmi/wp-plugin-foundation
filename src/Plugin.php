@@ -3,7 +3,7 @@
  * Class Plugin.
  *
  * @package Sherv\Foundation
- * @since   X.X.X
+ * @since   1.0.0
  */
 
 declare( strict_types=1 );
@@ -24,14 +24,14 @@ use Sherv\Foundation\Support\Utilities;
 /**
  * A package for initializing, configuring, and managing the lifecycle of a WordPress Plugin.
  *
- * @since X.X.X
+ * @since 1.0.0
  */
 class Plugin implements Plugin_Contract {
 
 	/**
 	 * Path to the plugin base directory.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @var string
 	 */
@@ -40,7 +40,7 @@ class Plugin implements Plugin_Contract {
 	/**
 	 * Indicates if the plugin has "booted".
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @var bool
 	 */
@@ -49,7 +49,7 @@ class Plugin implements Plugin_Contract {
 	/**
 	 * Create a new plugin instance.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param string|null $plugin_main_file The path to the main plugin file.
 	 * @param Container   $container        The container instance.
@@ -72,7 +72,7 @@ class Plugin implements Plugin_Contract {
 	/**
 	 * Set the base path for the plugin.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param string|null $plugin_main_file The path to the main plugin file.
 	 * @return void
@@ -92,7 +92,7 @@ class Plugin implements Plugin_Contract {
 	/**
 	 * Bind the plugin paths in the container.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
@@ -104,7 +104,7 @@ class Plugin implements Plugin_Contract {
 	/**
 	 * Register the base bindings in the container.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @return void
 	 */

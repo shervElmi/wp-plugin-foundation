@@ -3,7 +3,7 @@
  * Fixture: Plugin_Stub.
  *
  * @package Sherv\Foundation\Tests
- * @since   X.X.X
+ * @since   1.0.0
  */
 
 declare( strict_types=1 );
@@ -17,7 +17,7 @@ use Sherv\Foundation\Contracts\Plugin\Plugin;
 /**
  * A stub implementation of the Plugin interface for testing.
  *
- * @since X.X.X
+ * @since 1.0.0
  */
 class Plugin_Stub implements Plugin {
 

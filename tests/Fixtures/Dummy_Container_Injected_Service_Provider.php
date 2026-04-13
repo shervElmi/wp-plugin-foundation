@@ -3,7 +3,7 @@
  * Fixture: Dummy_Container_Injected_Service_Provider.
  *
  * @package Sherv\Foundation\Tests
- * @since   X.X.X
+ * @since   1.0.0
  */
 
 declare( strict_types=1 );
@@ -16,7 +16,7 @@ use Sherv\Foundation\Contracts\Provider\Service_Provider;
 /**
  * A service provider fixture that receives a container via constructor injection.
  *
- * @since X.X.X
+ * @since 1.0.0
  */
 class Dummy_Container_Injected_Service_Provider implements Service_Provider {
 

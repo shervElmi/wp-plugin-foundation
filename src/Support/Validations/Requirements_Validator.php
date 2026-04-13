@@ -3,7 +3,7 @@
  * Class Requirements_Validator.
  *
  * @package Sherv\Foundation
- * @since   X.X.X
+ * @since   1.0.0
  */
 
 declare( strict_types=1 );
@@ -21,14 +21,14 @@ if ( ! class_exists( Utilities::class ) ) {
 /**
  * Ensures all necessary conditions are met for proper functionality.
  *
- * @since X.X.X
+ * @since 1.0.0
  */
 class Requirements_Validator {
 
 	/**
 	 * Files that must be present and readable.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @var string[]
 	 */
@@ -37,7 +37,7 @@ class Requirements_Validator {
 	/**
 	 * Create a new requirements validator instance.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param string|null $plugin_main_file Absolute path to the main plugin file, or null
 	 *                                      to resolve the base path from the autoloader.
@@ -55,7 +55,7 @@ class Requirements_Validator {
 	/**
 	 * Validate requirements and display an admin notice on failure.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param string|null $plugin_file    Absolute path to the main plugin file (__FILE__),
 	 *                                    or null to resolve from the autoloader.
@@ -77,7 +77,7 @@ class Requirements_Validator {
 	/**
 	 * Runs all validation checks.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @return bool Returns false if there are errors, otherwise true.
 	 */
@@ -90,7 +90,7 @@ class Requirements_Validator {
 	/**
 	 * Checks if all required files are readable.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @return bool True if all required files are readable, false otherwise.
 	 */
@@ -114,7 +114,7 @@ class Requirements_Validator {
 	/**
 	 * Display an admin notice for validation errors.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
@@ -149,7 +149,7 @@ class Requirements_Validator {
 	/**
 	 * Resolve the human-readable plugin name.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @return string
 	 */
@@ -168,7 +168,7 @@ class Requirements_Validator {
 	/**
 	 * Build the required files list by prepending the autoload file.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param string[] $required_files Additional required files.
 	 * @return string[]
@@ -183,7 +183,7 @@ class Requirements_Validator {
 	/**
 	 * Get the WP_Error object containing any errors that were recorded.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @return WP_Error The error object.
 	 */
@@ -194,7 +194,7 @@ class Requirements_Validator {
 	/**
 	 * Sets the list of files that need to be checked for readability.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @param string[] $required_files Array of required files.
 	 * @return void
@@ -206,7 +206,7 @@ class Requirements_Validator {
 	/**
 	 * Get the list of required files.
 	 *
-	 * @since X.X.X
+	 * @since 1.0.0
 	 *
 	 * @return string[] List of required files.
 	 */
